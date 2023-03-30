@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "414839776351",
+    "project_id": "adventurer-s-companion-36c8c",
+    "storage_bucket": "adventurer-s-companion-36c8c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:414839776351:android:cee5b2c579b18b4032a7ea",
+        "android_client_info": {
+          "package_name": "com.adventurerscompanion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "414839776351-q0j8t3b73bk1l16cf4sdq91ap6kkcqts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUphqQOrr35xfIQAkinE9PEECoEJo-tzk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "414839776351-q0j8t3b73bk1l16cf4sdq91ap6kkcqts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

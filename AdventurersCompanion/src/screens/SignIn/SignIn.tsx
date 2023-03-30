@@ -1,7 +1,16 @@
 import React from 'react';
-import {View, StyleSheet, Text, Image, TextInput, Alert} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  TextInput,
+  Alert,
+  ScrollView,
+} from 'react-native';
 import PrimaryButton from '../../components/PrimaryButton';
 import {COLORS} from '../../assets/images/colors';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const SignIn = (props: any) => {
   console.log(props);
@@ -13,33 +22,35 @@ const SignIn = (props: any) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.divSuperior}>
-        <Image
-          style={styles.image}
-          source={require('../../assets/images/logo.png')}
-          accessibilityLabel="logo do app"
-        />
-        <TextInput style={styles.input} />
-        <TextInput style={styles.input} />
-        <Text style={styles.textEsqueceuSenha} onPress={recuperarSenha}>
-          Esqueceu sua senha?
-        </Text>
-        <PrimaryButton texto="Acessar" onClick={entrar} />
-      </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <View style={styles.divSuperior}>
+          <Image
+            style={styles.image}
+            source={require('../../assets/images/logo.png')}
+            accessibilityLabel="logo do app"
+          />
+          <TextInput style={styles.input} />
+          <TextInput style={styles.input} />
+          <Text style={styles.textEsqueceuSenha} onPress={recuperarSenha}>
+            Esqueceu sua senha?
+          </Text>
+          <PrimaryButton texto="Acessar" onClick={entrar} />
+        </View>
 
-      <View style={styles.divInferior}>
-        <View style={styles.divOuHr}>
-          <View style={styles.divHr} />
-          <Text style={styles.textOut}>OU</Text>
-          <View style={styles.divHr} />
+        <View style={styles.divInferior}>
+          <View style={styles.divOuHr}>
+            <View style={styles.divHr} />
+            <Text style={styles.textOut}>OU</Text>
+            <View style={styles.divHr} />
+          </View>
+          <View style={styles.divCadastrarSe}>
+            <Text style={styles.textNormal}>Não tem uma conta?</Text>
+            <Text style={styles.textCadastrarSe}>Cadastre-se</Text>
+          </View>
         </View>
-        <View style={styles.divCadastrarSe}>
-          <Text style={styles.textNormal}>Não tem uma conta?</Text>
-          <Text style={styles.textCadastrarSe}>Cadastre-se</Text>
-        </View>
-      </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

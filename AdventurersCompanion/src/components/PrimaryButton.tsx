@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primaryBlue,
     padding: 10,
     margin: 10,
-    borderRadius: 10,
+    borderRadius: 40,
     width: '90%',
     height: 55,
     justifyContent: 'center',
