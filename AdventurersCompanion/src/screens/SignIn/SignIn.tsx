@@ -11,9 +11,11 @@ import {
 import PrimaryButton from '../../components/PrimaryButton';
 import {COLORS} from '../../assets/images/colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import app from '@react-native-firebase/app';
+import auth from '@react-native-firebase/auth';
 
 const SignIn = (props: any) => {
-  console.log(props);
+  console.log(props, app, auth);
   const recuperarSenha = () => {
     Alert.alert('abrir modal recuperar senha');
   };
