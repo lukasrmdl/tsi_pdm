@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -13,14 +13,55 @@ import {COLORS} from '../../assets/images/colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import app from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
+import {CommonActions} from '@react-navigation/native';
 
-const SignIn = (props: any) => {
-  console.log(props, app, auth);
+const SignIn = ({navigation}: {navigation: any}) => {
+  console.log(app, auth);
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
   const recuperarSenha = () => {
     Alert.alert('abrir modal recuperar senha');
   };
+  const cadastrar = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{name: 'SignUp'}],
+      }),
+    );
+  };
   const entrar = () => {
-    Alert.alert('logar no sistema');
+    if (email !== '' && pass !== '') {
+      auth()
+        .signInWithEmailAndPassword(email, pass)
+        .then(() => {
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{name: 'Home'}],
+            }),
+          );
+        })
+        .catch(e => {
+          console.log('SignIn: erro em entrar(): ' + e);
+          switch (e.code) {
+            case 'auth/user-not-found':
+              Alert.alert('Erro', 'Usuário não encontrado!');
+              break;
+            case 'auth/wrong-password':
+              Alert.alert('Erro', 'Senha inválida!');
+              break;
+            case 'auth/invalid-email':
+              Alert.alert('Erro', 'Email inválido!');
+              break;
+            case 'auth/user-disabled':
+              Alert.alert('Erro', 'Usuário Desabilitado!');
+              break;
+          }
+        });
+    } else {
+      Alert.alert('Erro', 'Por favor, digite os campos de email e senha.');
+    }
   };
 
   return (
@@ -32,8 +73,21 @@ const SignIn = (props: any) => {
             source={require('../../assets/images/logo.png')}
             accessibilityLabel="logo do app"
           />
-          <TextInput style={styles.input} />
-          <TextInput style={styles.input} />
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            keyboardType="email-address"
+            returnKeyType="next"
+            onChangeText={t => setEmail(t)}
+          />
+          <TextInput
+            style={styles.input}
+            secureTextEntry={true}
+            placeholder="Senha"
+            keyboardType="default"
+            returnKeyType="go"
+            onChangeText={t => setPass(t)}
+          />
           <Text style={styles.textEsqueceuSenha} onPress={recuperarSenha}>
             Esqueceu sua senha?
           </Text>
@@ -48,7 +102,9 @@ const SignIn = (props: any) => {
           </View>
           <View style={styles.divCadastrarSe}>
             <Text style={styles.textNormal}>Não tem uma conta?</Text>
-            <Text style={styles.textCadastrarSe}>Cadastre-se</Text>
+            <Text style={styles.textCadastrarSe} onPress={cadastrar}>
+              Cadastre-se
+            </Text>
           </View>
         </View>
       </ScrollView>

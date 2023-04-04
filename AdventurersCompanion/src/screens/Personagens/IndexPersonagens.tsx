@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-const Characters = () => {
+const Personagens = () => {
   return (
     <View>
-      <Text>Characters</Text>
+      <Text>Seus personagens Ficam salvos Aqui!</Text>
     </View>
   );
 };
 
-export default Characters;
+export default Personagens;

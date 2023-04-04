@@ -5,6 +5,7 @@ import * as React from 'react';
 import Home from './src/screens/Home/Home';
 import SignUp from './src/screens/SignUp/SignUp';
 import SignIn from './src/screens/SignIn/SignIn';
+import IndexPersonagens from './src/screens/Personagens/IndexPersonagens';
 import {StatusBar} from 'react-native';
 import {COLORS} from './src/assets/images/colors';
 
@@ -19,9 +20,10 @@ function App() {
         <Stack.Screen
           name="Bem vindo"
           component={SignIn}
-          options={singInStyle}
+          options={signInStyle}
         />
         <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="Personagens" component={IndexPersonagens} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -29,7 +31,7 @@ function App() {
 
 export default App;
 
-const singInStyle = {
+const signInStyle = {
   tittle: 'Bem vindo',
   headerStyle: {backgroundColor: COLORS.primaryWhite},
   headerTittleStyle: {color: COLORS.primaryBlue},
