@@ -20,7 +20,7 @@ const SignIn = ({navigation}: {navigation: any}) => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const recuperarSenha = () => {
-    Alert.alert('abrir modal recuperar senha');
+    navigation.navigate('Recuperar Senha');
   };
   const cadastrar = () => {
     navigation.dispatch(

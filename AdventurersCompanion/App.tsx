@@ -8,6 +8,7 @@ import SignIn from './src/screens/SignIn/SignIn';
 import IndexPersonagens from './src/screens/Personagens/IndexPersonagens';
 import {StatusBar} from 'react-native';
 import {COLORS} from './src/assets/images/colors';
+import ForgotPassWord from './src/screens/ForgotPassWord/ForgotPassWord';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ function App() {
           options={signInStyle}
         />
         <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="Recuperar Senha" component={ForgotPassWord} />
         <Stack.Screen name="Personagens" component={IndexPersonagens} />
       </Stack.Navigator>
     </NavigationContainer>
