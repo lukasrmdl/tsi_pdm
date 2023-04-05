@@ -20,15 +20,10 @@ const SignIn = ({navigation}: {navigation: any}) => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const recuperarSenha = () => {
-    navigation.navigate('Recuperar Senha');
+    navigation.navigate('ForgotPassWord');
   };
   const cadastrar = () => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{name: 'SignUp'}],
-      }),
-    );
+    navigation.navigate('SignUp');
   };
   const entrar = () => {
     if (email !== '' && pass !== '') {
@@ -140,7 +135,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     marginLeft: 5,
     marginRight: 5,
-    MarginBottom: 5,
+    marginBottom: 5,
   },
   input: {
     width: '85%',
