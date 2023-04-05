@@ -4,7 +4,7 @@ import {COLORS} from '../../assets/images/colors';
 import PrimaryButton from '../../components/PrimaryButton';
 import auth from '@react-native-firebase/auth';
 
-const ForgotPassWord = () => {
+const ForgotPassWord = ({navigation}: {navigation: any}) => {
   const [email, setEmail] = useState('');
 
   const recover = () => {
@@ -17,6 +17,7 @@ const ForgotPassWord = () => {
             'Atenção',
             'Enviamos um email de recuperação de senha para o seguinte endereço: ' +
               email,
+            [{text: 'OK', onPress: () => navigation.goBack()}],
           );
         })
         .catch(e => {
