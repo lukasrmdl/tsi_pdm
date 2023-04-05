@@ -16,7 +16,7 @@ import auth from '@react-native-firebase/auth';
 import {CommonActions} from '@react-navigation/native';
 
 const SignIn = ({navigation}: {navigation: any}) => {
-  console.log(app, auth);
+  console.log(app);
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const recuperarSenha = () => {
