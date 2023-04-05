@@ -14,6 +14,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import app from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
 import {CommonActions} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignIn = ({navigation}: {navigation: any}) => {
   console.log(app);
