@@ -3,7 +3,6 @@ import {COLORS} from '../../assets/images/colors';
 
 export const Body = styled.View`
   flex: 1;
-  background-color: ${COLORS.primaryBlue};
   align-items: center;
   padding-top: 30px;
 `;
@@ -24,7 +23,7 @@ export const Text = styled.Text`
   margin-left: 25px;
   margin-right: 15px;
   margin-bottom: 45px;
-  color: ${COLORS.primaryWhite};
+  color: ${COLORS.primaryBlue};
   text-align: left;
   font-weight: bold;
 `;
