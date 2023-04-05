@@ -16,6 +16,7 @@ import auth from '@react-native-firebase/auth';
 import {CommonActions} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+console.log(AsyncStorage);
 const SignIn = ({navigation}: {navigation: any}) => {
   console.log(app);
   const [email, setEmail] = useState('');
