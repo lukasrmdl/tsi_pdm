@@ -17,7 +17,7 @@ function App() {
     <NavigationContainer>
       <StatusBar backgroundColor={COLORS.primaryBlue} />
       <Stack.Navigator initialRouteName="SignIn">
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Home" component={Home} options={homeStyle} />
         <Stack.Screen name="SignIn" component={SignIn} options={signInStyle} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen
@@ -34,13 +34,19 @@ function App() {
 export default App;
 
 const signInStyle = {
-  tittle: 'Bem vindo!',
+  title: 'Bem vindo!',
+  headerStyle: {backgroundColor: COLORS.primaryWhite},
+  headerTittleStyle: {color: COLORS.primaryBlue},
+};
+
+const homeStyle = {
+  title: 'Inicio',
   headerStyle: {backgroundColor: COLORS.primaryWhite},
   headerTittleStyle: {color: COLORS.primaryBlue},
 };
 
 const forgotPassWordStyle = {
-  tittle: 'Recuperar Senha',
+  title: 'Recuperação de Senha',
   headerStyle: {backgroundColor: COLORS.primaryWhite},
   headerTittleStyle: {color: COLORS.primaryBlue},
 };
