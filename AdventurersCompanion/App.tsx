@@ -36,23 +36,27 @@ export default App;
 const signInStyle = {
   title: 'Bem vindo!',
   headerStyle: {backgroundColor: COLORS.primaryWhite},
-  headerTittleStyle: {color: COLORS.primaryBlue},
+  headerTitleStyle: {color: COLORS.primaryBlue, fontSize: 23},
 };
 
 const homeStyle = {
   title: 'Inicio',
   headerStyle: {backgroundColor: COLORS.primaryWhite},
-  headerTittleStyle: {color: COLORS.primaryBlue},
+  headerTitleStyle: {color: COLORS.primaryBlue, fontSize: 23},
 };
 
 const forgotPassWordStyle = {
   title: 'Recuperação de Senha',
   headerStyle: {backgroundColor: COLORS.primaryWhite},
-  headerTittleStyle: {color: COLORS.primaryBlue},
+  headerTitleStyle: {color: COLORS.primaryBlue, fontSize: 23},
 };
 
 const SignUpStyle = {
-  title: 'Cadastro',
+  title: 'Cadastre-se',
   headerStyle: {backgroundColor: COLORS.primaryWhite},
-  headerTittleStyle: {color: COLORS.primaryBlue},
+  headerTitleStyle: {
+    color: COLORS.primaryBlue,
+    fontSize: 23,
+  },
+  headerTintColor: COLORS.primaryBlue,
 };
