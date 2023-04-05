@@ -3,7 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import Home from './src/screens/Home/Home';
-import SignUp from './src/screens/SignUp/SignUp';
+import SignUp from './src/screens/SignUp';
 import SignIn from './src/screens/SignIn/SignIn';
 import IndexPersonagens from './src/screens/Personagens/IndexPersonagens';
 import {StatusBar} from 'react-native';
@@ -19,7 +19,7 @@ function App() {
       <Stack.Navigator initialRouteName="SignIn">
         <Stack.Screen name="Home" component={Home} options={homeStyle} />
         <Stack.Screen name="SignIn" component={SignIn} options={signInStyle} />
-        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="SignUp" component={SignUp} options={SignUpStyle} />
         <Stack.Screen
           name="ForgotPassWord"
           component={ForgotPassWord}
@@ -47,6 +47,12 @@ const homeStyle = {
 
 const forgotPassWordStyle = {
   title: 'Recuperação de Senha',
+  headerStyle: {backgroundColor: COLORS.primaryWhite},
+  headerTittleStyle: {color: COLORS.primaryBlue},
+};
+
+const SignUpStyle = {
+  title: 'Cadastro',
   headerStyle: {backgroundColor: COLORS.primaryWhite},
   headerTittleStyle: {color: COLORS.primaryBlue},
 };
