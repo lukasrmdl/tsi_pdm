@@ -30,6 +30,13 @@ const SignIn = ({navigation}: {navigation: any}) => {
       auth()
         .signInWithEmailAndPassword(email, pass)
         .then(() => {
+          if (!auth().currentUser?.emailVerified) {
+            Alert.alert(
+              'Alerta',
+              'Você deve verificar o seu email para prosseguir.',
+            );
+            return;
+          }
           navigation.dispatch(
             CommonActions.reset({
               index: 0,

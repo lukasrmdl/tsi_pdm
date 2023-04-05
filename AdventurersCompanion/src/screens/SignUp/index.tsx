@@ -17,16 +17,29 @@ const SignUp = ({navigation}: {navigation: any}) => {
       auth()
         .createUserWithEmailAndPassword(email, pass)
         .then(() => {
-          Alert.alert('Informação', 'Usuário cadastrado com sucesso.');
-          navigation.dispatch(
-            CommonActions.reset({
-              index: 0,
-              routes: [{name: 'Home'}],
-            }),
-          );
+          let userF = auth().currentUser;
+          userF
+            ?.sendEmailVerification()
+            .then(() => {
+              Alert.alert(
+                'Informação',
+                'Foi enviado um email para o endereço: ' +
+                  email +
+                  '  para a verificação.',
+              );
+              navigation.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [{name: 'SignIn'}],
+                }),
+              );
+            })
+            .catch(e => {
+              console.log('SignUp: erro em cadastrar(): ' + e);
+            });
         })
         .catch(e => {
-          console.log('SignIn: erro em entrar(): ' + e);
+          console.log('SignUp: erro em cadastrar(): ' + e);
           switch (e.code) {
             case 'auth/email-already-in-use':
               Alert.alert('Erro', 'O email já está em uso!');
