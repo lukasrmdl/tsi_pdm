@@ -6,6 +6,7 @@ import {Body, Text, TextInput} from './styles';
 import auth from '@react-native-firebase/auth';
 import {CommonActions} from '@react-navigation/native';
 import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 const SignUp = ({navigation}: {navigation: any}) => {
   const [nome, setNome] = useState('');
@@ -20,6 +21,17 @@ const SignUp = ({navigation}: {navigation: any}) => {
           .createUserWithEmailAndPassword(email, pass)
           .then(() => {
             let userF = auth().currentUser;
+            const uid = userF!.uid;
+            let user = {nome, email};
+            user.nome = nome;
+            user.email = email;
+            firestore()
+              .collection('users')
+              .doc(uid)
+              .set(user)
+              .then(() => {
+                console.log('Usuario adicionado!');
+              });
             userF
               ?.sendEmailVerification()
               .then(() => {
