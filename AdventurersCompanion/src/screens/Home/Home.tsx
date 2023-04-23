@@ -2,12 +2,24 @@ import {CommonActions} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import PrimaryButton from '../../components/PrimaryButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({navigation}: {navigation: any}) => {
   //1.ComponentDidMount
   useEffect(() => {
     console.log('Montou o componente.');
   }, []);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const getUserCache = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@user');
+      //Alert.alert(jsonValue);
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (e) {
+      console.log('SignIn: erro em getUserCache(): ' + e);
+    }
+  };
 
   //2.ComponentDidUpdate
   useEffect(() => {
@@ -22,7 +34,6 @@ const Home = ({navigation}: {navigation: any}) => {
       }),
     );
   };
-
   return (
     <View>
       <Text style={styles.textoMain}>Olá Aventureiro, Bem vindo!</Text>

@@ -14,16 +14,39 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import app from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
 import {CommonActions} from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-console.log(AsyncStorage);
-
 const SignIn = ({navigation}: {navigation: any}) => {
-  console.log(app);
+  console.log(app, AsyncStorage);
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const recuperarSenha = () => {
     navigation.navigate('ForgotPassWord');
+  };
+  const storeUserCache = async (value: any) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('@user', jsonValue);
+    } catch (e) {
+      console.log('SignIn: erro em storeUserCache(): ' + e);
+    }
+  };
+  const getUser = () => {
+    firestore()
+      .collection('users')
+      .doc(auth().currentUser?.uid)
+      .get()
+      .then(doc => {
+        if (doc.exists) {
+          storeUserCache(doc.data());
+        } else {
+          console.log('O documento não existe na base de dados!');
+        }
+      })
+      .catch(e => {
+        console.log('SignIn: erro em getUser(): ' + e);
+      });
   };
   const cadastrar = () => {
     navigation.navigate('SignUp');
@@ -40,6 +63,7 @@ const SignIn = ({navigation}: {navigation: any}) => {
             );
             return;
           }
+          getUser();
           navigation.dispatch(
             CommonActions.reset({
               index: 0,
