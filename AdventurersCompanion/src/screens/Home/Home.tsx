@@ -1,31 +1,23 @@
-import {CommonActions} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import PrimaryButton from '../../components/PrimaryButton';
+import {COLORS} from '../../assets/images/colors';
+import LogoutButton from '../../components/LogoutButton';
 
 const Home = ({navigation}: {navigation: any}) => {
-  //1.ComponentDidMount
   useEffect(() => {
-    console.log('Montou o componente.');
+    navigation.setOptions({
+      headerLeftShown: false,
+      title: 'Personagens',
+      headerStyle: {backgroundColor: COLORS.primaryBlue},
+      headerTitleStyle: {color: COLORS.primaryWhite},
+      // eslint-disable-next-line react/no-unstable-nested-components
+      headerRight: () => <LogoutButton />,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  //2.ComponentDidUpdate
-  useEffect(() => {
-    console.log('Atualizou o componente.');
-  }, []);
-
-  const entrarPersonagens = () => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{name: 'Personagens'}],
-      }),
-    );
-  };
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.textoMain}>Olá Aventureiro, Bem vindo!</Text>
-      <PrimaryButton texto="Personagens" onClick={entrarPersonagens} />
     </View>
   );
 };
@@ -33,6 +25,11 @@ const Home = ({navigation}: {navigation: any}) => {
 export default Home;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   textoMain: {
     fontSize: 24,
     textAlign: 'center',

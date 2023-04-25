@@ -5,7 +5,6 @@ import * as React from 'react';
 import Home from './src/screens/Home/Home';
 import SignUp from './src/screens/SignUp';
 import SignIn from './src/screens/SignIn/SignIn';
-import IndexPersonagens from './src/screens/Personagens/IndexPersonagens';
 import {StatusBar} from 'react-native';
 import {COLORS} from './src/assets/images/colors';
 import ForgotPassWord from './src/screens/ForgotPassWord/ForgotPassWord';
@@ -25,13 +24,12 @@ function App() {
         />
         <Stack.Screen name="SignIn" component={SignIn} options={signInStyle} />
         <Stack.Screen name="SignUp" component={SignUp} options={SignUpStyle} />
-        <Stack.Screen name="Home" component={Home} options={homeStyle} />
+        <Stack.Screen name="Home" component={Home} />
         <Stack.Screen
           name="ForgotPassWord"
           component={ForgotPassWord}
           options={forgotPassWordStyle}
         />
-        <Stack.Screen name="Personagens" component={IndexPersonagens} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -45,12 +43,6 @@ const PreloadStyle = {
 
 const signInStyle = {
   title: 'Bem vindo!',
-  headerStyle: {backgroundColor: COLORS.primaryWhite},
-  headerTitleStyle: {color: COLORS.primaryBlue, fontSize: 23},
-};
-
-const homeStyle = {
-  title: 'Inicio',
   headerStyle: {backgroundColor: COLORS.primaryWhite},
   headerTitleStyle: {color: COLORS.primaryBlue, fontSize: 23},
 };
