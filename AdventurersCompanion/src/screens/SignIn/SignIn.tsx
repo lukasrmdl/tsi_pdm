@@ -26,8 +26,15 @@ const SignIn = ({navigation}: {navigation: any}) => {
   };
   const storeUserCache = async (value: any) => {
     try {
+      value.pass = pass;
       const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem('@user', jsonValue);
+      await AsyncStorage.setItem('user', jsonValue);
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{name: 'Home'}],
+        }),
+      );
     } catch (e) {
       console.log('SignIn: erro em storeUserCache(): ' + e);
     }

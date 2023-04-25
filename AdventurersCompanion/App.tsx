@@ -9,6 +9,7 @@ import IndexPersonagens from './src/screens/Personagens/IndexPersonagens';
 import {StatusBar} from 'react-native';
 import {COLORS} from './src/assets/images/colors';
 import ForgotPassWord from './src/screens/ForgotPassWord/ForgotPassWord';
+import Preload from './src/screens/Preload';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,10 +17,15 @@ function App() {
   return (
     <NavigationContainer>
       <StatusBar backgroundColor={COLORS.primaryBlue} />
-      <Stack.Navigator initialRouteName="SignIn">
-        <Stack.Screen name="Home" component={Home} options={homeStyle} />
+      <Stack.Navigator initialRouteName="Preload">
+        <Stack.Screen
+          name="Preload"
+          component={Preload}
+          options={PreloadStyle}
+        />
         <Stack.Screen name="SignIn" component={SignIn} options={signInStyle} />
         <Stack.Screen name="SignUp" component={SignUp} options={SignUpStyle} />
+        <Stack.Screen name="Home" component={Home} options={homeStyle} />
         <Stack.Screen
           name="ForgotPassWord"
           component={ForgotPassWord}
@@ -32,6 +38,10 @@ function App() {
 }
 
 export default App;
+
+const PreloadStyle = {
+  headerShown: false,
+};
 
 const signInStyle = {
   title: 'Bem vindo!',
