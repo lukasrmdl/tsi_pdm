@@ -1,6 +1,8 @@
 import React from 'react';
-import {Alert} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import styled from 'styled-components/native';
+import auth from '@react-native-firebase/auth';
+import RNRestart from 'react-native-restart';
 
 const ButtonExit = styled.TouchableHighlight`
   width: 50px;
@@ -16,7 +18,19 @@ const Image = styled.Image`
 
 const LogoutButton = () => {
   const signOut = () => {
-    Alert.alert('Saiu!');
+    AsyncStorage.removeItem('user')
+      .then(() => {
+        auth()
+          .signOut()
+          .then(() => {})
+          .catch(e => {
+            console.log('LogoutButoon, SignOut em auth signOut: ' + e);
+          });
+        RNRestart.Restart();
+      })
+      .catch(e => {
+        console.log('LogoutButoon, SignOut em removeItem: ' + e);
+      });
   };
   return (
     <ButtonExit onPress={signOut} underlayColor="transparent">
