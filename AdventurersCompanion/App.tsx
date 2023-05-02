@@ -1,64 +1,6 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import 'react-native-gesture-handler';
-import * as React from 'react';
-import Home from './src/screens/Home/Home';
-import SignUp from './src/screens/SignUp';
-import SignIn from './src/screens/SignIn/SignIn';
-import {StatusBar} from 'react-native';
-import {COLORS} from './src/assets/images/colors';
-import ForgotPassWord from './src/screens/ForgotPassWord/ForgotPassWord';
-import Preload from './src/screens/Preload';
+import React from 'react';
+import Providers from './navigation';
 
-const Stack = createNativeStackNavigator();
-
-function App() {
-  return (
-    <NavigationContainer>
-      <StatusBar backgroundColor={COLORS.primaryBlue} />
-      <Stack.Navigator initialRouteName="Preload">
-        <Stack.Screen
-          name="Preload"
-          component={Preload}
-          options={PreloadStyle}
-        />
-        <Stack.Screen name="SignIn" component={SignIn} options={signInStyle} />
-        <Stack.Screen name="SignUp" component={SignUp} options={SignUpStyle} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen
-          name="ForgotPassWord"
-          component={ForgotPassWord}
-          options={forgotPassWordStyle}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+export default function App() {
+  return <Providers />;
 }
-
-export default App;
-
-const PreloadStyle = {
-  headerShown: false,
-};
-
-const signInStyle = {
-  title: 'Bem vindo!',
-  headerStyle: {backgroundColor: COLORS.primaryWhite},
-  headerTitleStyle: {color: COLORS.primaryBlue, fontSize: 23},
-};
-
-const forgotPassWordStyle = {
-  title: 'Recuperação de Senha',
-  headerStyle: {backgroundColor: COLORS.primaryWhite},
-  headerTitleStyle: {color: COLORS.primaryBlue, fontSize: 23},
-};
-
-const SignUpStyle = {
-  title: 'Cadastre-se',
-  headerStyle: {backgroundColor: COLORS.primaryWhite},
-  headerTitleStyle: {
-    color: COLORS.primaryBlue,
-    fontSize: 23,
-  },
-  headerTintColor: COLORS.primaryBlue,
-};

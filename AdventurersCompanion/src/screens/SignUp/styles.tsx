@@ -23,7 +23,7 @@ export const Text = styled.Text`
   margin-left: 25px;
   margin-right: 15px;
   margin-bottom: 45px;
-  color: ${COLORS.primaryWhite};
+  color: ${COLORS.primaryBlue};
   text-align: left;
   font-weight: bold;
 `;

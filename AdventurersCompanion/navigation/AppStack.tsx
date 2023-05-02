@@ -1,0 +1,23 @@
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+import Preload from '../src/screens/Preload';
+import Home from '../src/screens/Home/Home';
+
+const Stack = createNativeStackNavigator();
+
+const AppStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="Preload">
+      <Stack.Screen name="Preload" component={Preload} options={PreloadStyle} />
+      <Stack.Screen name="Home" component={Home} />
+    </Stack.Navigator>
+  );
+};
+
+export default AppStack;
+
+const PreloadStyle = {
+  headerShown: false,
+};
