@@ -3,11 +3,11 @@ import {View, Text, StyleSheet} from 'react-native';
 import {COLORS} from '../../assets/images/colors';
 import LogoutButton from '../../components/LogoutButton';
 
-const Home = ({navigation}: {navigation: any}) => {
+const Grimorio = ({navigation}: {navigation: any}) => {
   useEffect(() => {
     navigation.setOptions({
       headerLeftShown: false,
-      title: 'Personagens',
+      title: 'Grimório',
       headerStyle: {backgroundColor: COLORS.primaryBlue},
       headerTitleStyle: {color: COLORS.primaryWhite},
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -17,12 +17,12 @@ const Home = ({navigation}: {navigation: any}) => {
   }, []);
   return (
     <View style={styles.container}>
-      <Text style={styles.textoMain}>Olá Aventureiro, Bem vindo!</Text>
+      <Text style={styles.textoMain}>grimorio</Text>
     </View>
   );
 };
 
-export default Home;
+export default Grimorio;
 
 const styles = StyleSheet.create({
   container: {

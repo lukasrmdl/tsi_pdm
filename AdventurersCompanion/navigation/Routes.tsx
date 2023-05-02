@@ -19,6 +19,7 @@ export default function Routes() {
     return unsubscriber;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <NavigationContainer>
       <StatusBar backgroundColor={COLORS.primaryBlue} />

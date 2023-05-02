@@ -32,7 +32,7 @@ const SignIn = ({navigation}: {navigation: any}) => {
       //navigation.dispatch(
       //  CommonActions.reset({
       //    index: 0,
-      //    routes: [{name: 'Home'}],
+      //    routes: [{name: 'Personagens'}],
       //  }),
       //);
     } catch (e) {
@@ -74,7 +74,7 @@ const SignIn = ({navigation}: {navigation: any}) => {
           navigation.dispatch(
             CommonActions.reset({
               index: 0,
-              routes: [{name: 'Home'}],
+              routes: [{name: 'Personagens'}],
             }),
           );
         })
