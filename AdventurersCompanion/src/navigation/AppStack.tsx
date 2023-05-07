@@ -1,12 +1,12 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import Preload from '../src/screens/Preload';
-import Personagens from '../src/screens/Personagens/Home';
-import Grimorio from '../src/screens/Grimorio';
+import Preload from '../screens/Preload';
+import Personagens from '../screens/Personagens/Personagens';
+import Grimorio from '../screens/Grimorio/Grimorio';
+import {createStackNavigator} from '@react-navigation/stack';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const AppStack = () => {
   return (

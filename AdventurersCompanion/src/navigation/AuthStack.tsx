@@ -2,10 +2,10 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {COLORS} from '../src/assets/images/colors';
-import SignIn from '../src/screens/SignIn/SignIn';
-import SignUp from '../src/screens/SignUp';
-import ForgotPassWord from '../src/screens/ForgotPassWord/ForgotPassWord';
+import {COLORS} from '../assets/images/colors';
+import SignIn from '../screens/SignIn/SignIn';
+import SignUp from '../screens/SignUp';
+import ForgotPassWord from '../screens/ForgotPassWord/ForgotPassWord';
 
 const Stack = createNativeStackNavigator();
 

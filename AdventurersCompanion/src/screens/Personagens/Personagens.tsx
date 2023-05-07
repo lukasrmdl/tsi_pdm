@@ -17,7 +17,7 @@ const Personagens = ({navigation}: {navigation: any}) => {
   }, []);
   return (
     <View style={styles.container}>
-      <Text style={styles.textoMain}>Personagens</Text>
+      <Text style={styles.textoMain}>Olá Aventureiro, Bem vindo!</Text>
     </View>
   );
 };

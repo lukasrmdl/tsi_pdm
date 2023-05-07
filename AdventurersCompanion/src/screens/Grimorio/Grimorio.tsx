@@ -7,7 +7,7 @@ const Grimorio = ({navigation}: {navigation: any}) => {
   useEffect(() => {
     navigation.setOptions({
       headerLeftShown: false,
-      title: 'Grimório',
+      title: 'Grimorio',
       headerStyle: {backgroundColor: COLORS.primaryBlue},
       headerTitleStyle: {color: COLORS.primaryWhite},
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -17,7 +17,7 @@ const Grimorio = ({navigation}: {navigation: any}) => {
   }, []);
   return (
     <View style={styles.container}>
-      <Text style={styles.textoMain}>grimorio</Text>
+      <Text style={styles.textoMain}>Olá Aventureiro, Bem vindo!</Text>
     </View>
   );
 };

@@ -5,7 +5,7 @@ import auth from '@react-native-firebase/auth';
 import {AuthUserContext} from '../context/AuthUserProvider';
 import AppStack from './AppStack';
 import AuthStack from './AuthStack';
-import {COLORS} from '../src/assets/images/colors';
+import {COLORS} from '../assets/images/colors';
 import {StatusBar} from 'react-native';
 
 export default function Routes() {
