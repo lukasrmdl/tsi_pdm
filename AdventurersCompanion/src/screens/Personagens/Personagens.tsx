@@ -1,38 +1,55 @@
-import React, {useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+/* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable react-hooks/exhaustive-deps */
+import {CommonActions} from '@react-navigation/native';
+import React, {useContext, useEffect, useState} from 'react';
 import {COLORS} from '../../assets/images/colors';
 import LogoutButton from '../../components/LogoutButton';
+import Item from './Item';
+import {PersonagensContext} from '../../context/PersonagemProvider';
+import {Container, FlatList} from './styles';
 
 const Personagens = ({navigation}: {navigation: any}) => {
+  const [data, setData] = useState([]);
+  const {personagens} = useContext(PersonagensContext);
+
+  useEffect(() => {
+    setData(personagens);
+  }, []);
+
+  console.log(setData, personagens);
+
+  const routePersonagens = ({item}: {item: any}) => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'Personagem',
+        params: {personagem: item},
+      }),
+    );
+  };
+  const renderItem = ({item}: {item: any}) => (
+    <Item item={item} onPress={() => routePersonagens(item)} />
+  );
+  const keyExtractor = (item: any, _index: number) => item.id.toString();
+
   useEffect(() => {
     navigation.setOptions({
       headerLeftShown: false,
       title: 'Personagens',
       headerStyle: {backgroundColor: COLORS.primaryBlue},
       headerTitleStyle: {color: COLORS.primaryWhite},
-      // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => <LogoutButton />,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.textoMain}>Olá Aventureiro, Bem vindo!</Text>
-    </View>
+    <Container>
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+      />
+    </Container>
   );
 };
 
 export default Personagens;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textoMain: {
-    fontSize: 24,
-    textAlign: 'center',
-    paddingTop: 10,
-  },
-});
