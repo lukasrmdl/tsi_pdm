@@ -6,11 +6,11 @@ import {useState, useEffect, createContext} from 'react';
 import {QuerySnapshot} from '@firebase/firestore-types';
 
 interface PersonagemData {
-  id: string;
-  nome: string;
-  classe: string;
-  subclasse: string;
-  nivel: number;
+  uid: string;
+  Nome: string;
+  Classe: string;
+  Subclasse: string;
+  Nível: number;
 }
 
 interface PersonagemContextType {
@@ -37,11 +37,11 @@ export const PersonagemProvider = ({children}: {children: any}) => {
             let d: PersonagemData[] = [];
             querySnapshot.forEach(doc => {
               const val: PersonagemData = {
-                id: doc.id,
-                nome: doc.data().nome,
-                classe: doc.data().classe,
-                subclasse: doc.data().subclasse,
-                nivel: doc.data().nivel,
+                uid: doc.id,
+                Nome: doc.data().Nome,
+                Classe: doc.data().Classe,
+                Subclasse: doc.data().Subclasse,
+                Nível: doc.data().Nível,
               };
               d.push(val);
             });
