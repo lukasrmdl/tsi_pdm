@@ -1,35 +1,48 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react-hooks/exhaustive-deps */
-import {CommonActions} from '@react-navigation/native';
 import React, {useContext, useEffect, useState} from 'react';
 import {COLORS} from '../../assets/images/colors';
 import LogoutButton from '../../components/LogoutButton';
 import Item from './Item';
 import {PersonagensContext} from '../../context/PersonagemProvider';
-import {Container, FlatList} from './styles';
+import {View, StyleSheet, FlatList} from 'react-native';
+import AddFloatButton from '../../components/AddFloatButton';
+import SearchBar from '../../components/SearchBar';
 
 const Personagens = ({navigation}: {navigation: any}) => {
-  const [data, setData] = useState([]);
   const {personagens} = useContext(PersonagensContext);
+  const [personagensTemp, setPersonagensTemp] = useState<any[]>([]);
 
-  useEffect(() => {
-    setData(personagens);
-  }, []);
+  console.log(personagens, personagensTemp);
 
-  console.log(setData, personagens);
+  const filterByName = (text: any) => {
+    if (text !== '') {
+      let a = [];
+      //personagens.forEach((e: any) => {
+      //  if (e.Nome.toLowerCase().includes(text.toLowerCase())) {
+      //    a.push(e);
+      //  }
+      //});
 
-  const routePersonagens = ({item}: {item: any}) => {
-    navigation.dispatch(
-      CommonActions.navigate({
-        name: 'Personagem',
-        params: {personagem: item},
-      }),
-    );
+      a.push(
+        ...personagens.filter((e: any) =>
+          e.Nome.toLowerCase().includes(text.toLowerCase()),
+        ),
+      );
+
+      if (a.length > 0) {
+        setPersonagensTemp(a);
+      }
+    } else {
+      setPersonagensTemp([]);
+    }
   };
-  const renderItem = ({item}: {item: any}) => (
-    <Item item={item} onPress={() => routePersonagens(item)} />
-  );
-  const keyExtractor = (item: any, _index: number) => item.id.toString();
+
+  const routePersonagem = (value: any) => {
+    navigation.navigate('Personagem', {
+      value,
+    });
+  };
 
   useEffect(() => {
     navigation.setOptions({
@@ -42,14 +55,28 @@ const Personagens = ({navigation}: {navigation: any}) => {
   }, []);
 
   return (
-    <Container>
+    <View style={styles.container}>
+      <SearchBar setSearch={filterByName} />
       <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
+        data={personagensTemp.length > 0 ? personagensTemp : personagens}
+        renderItem={({item}) => (
+          <Item
+            item={item}
+            onPress={() => routePersonagem(item)}
+            key={item.uid}
+          />
+        )}
+        keyExtractor={item => item.uid}
       />
-    </Container>
+      <AddFloatButton onClick={() => routePersonagem('')} />
+    </View>
   );
 };
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 5,
+  },
+});
 
 export default Personagens;

@@ -11,6 +11,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {COLORS} from '../assets/images/colors';
 import {createStackNavigator} from '@react-navigation/stack';
+import Personagem from '../screens/Personagem';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -21,6 +22,11 @@ const PreloadStack = () => {
       <Stack.Screen
         name="Preload"
         component={Preload}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Personagem"
+        component={Personagem}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

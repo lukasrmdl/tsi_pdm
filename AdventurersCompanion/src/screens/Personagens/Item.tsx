@@ -21,31 +21,45 @@ const Button = styled.TouchableHighlight`
   border-radius: 10px;
 `;
 
-const Div = styled.View`
-  width: 100%;
-  height: 50px;
-  flex-direction: row;
-`;
-
 const TextName = styled.Text`
   font-size: 24px;
   color: ${COLORS.primaryWhite};
 `;
+const TextInfoContainer = styled.View`
+  flex-direction: row;
+  margin-top: 10px;
+  padding: 0px;
+`;
 
-const TextInfo = styled.Text`
-  font-size: 16px;
+const TextInfoClasse = styled.Text`
+  font-size: 13px;
   color: ${COLORS.grey};
   text-align: justify;
+`;
+const TextInfoSubclasse = styled.Text`
+  font-size: 13px;
+  color: ${COLORS.grey};
+  text-align: justify;
+  margin-left: 10px;
+`;
+const TextInfoNivel = styled.Text`
+  font-size: 13px;
+  color: ${COLORS.grey};
+  text-align: justify;
+  margin-top: 5px;
 `;
 
 const Item = ({item, onPress}: ItemProps) => {
   return (
     <Button onPress={onPress} underlayColor="transparent">
-      <TextName>{item.Nome}</TextName>
-      <Div>
-        <TextInfo>{item.Classe}</TextInfo>,<TextInfo>{item.Subclasse}</TextInfo>
-        ,<TextInfo>{item.Nível}</TextInfo>,
-      </Div>
+      <>
+        <TextName>{item.Nome}</TextName>
+        <TextInfoContainer>
+          <TextInfoClasse>Classe: {item.Classe} </TextInfoClasse>
+          <TextInfoSubclasse>Subclasse: {item.Subclasse} </TextInfoSubclasse>
+        </TextInfoContainer>
+        <TextInfoNivel>Nível: {item.Nível}</TextInfoNivel>
+      </>
     </Button>
   );
 };

@@ -1,12 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {useContext, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Container, Image} from './styles';
 import {CommonActions} from '@react-navigation/native';
-import {PersonagensContext} from '../../context/PersonagemProvider';
 
 const Preload = ({navigation}: {navigation: any}) => {
   console.log(navigation);
-  const {getPersonagens} = useContext(PersonagensContext);
   const getUserCache = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('user');
@@ -38,11 +36,6 @@ const Preload = ({navigation}: {navigation: any}) => {
 
   useEffect(() => {
     loginUser();
-    const unsubscribePersonagens = getPersonagens();
-
-    return () => {
-      unsubscribePersonagens;
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
