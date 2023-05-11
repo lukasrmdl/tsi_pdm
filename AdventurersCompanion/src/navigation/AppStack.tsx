@@ -16,23 +16,6 @@ import Personagem from '../screens/Personagem';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-const PreloadStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Preload"
-        component={Preload}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="Personagem"
-        component={Personagem}
-        options={{headerShown: false}}
-      />
-    </Stack.Navigator>
-  );
-};
-
 const icons: {
   [key: string]: {
     iconName: string;
@@ -50,6 +33,10 @@ const icons: {
   Grimorio: {
     iconName: 'book-outline',
     iconNameFocused: 'book',
+  },
+  Personagem: {
+    iconName: 'people-outline',
+    iconNameFocused: 'people',
   },
 };
 
@@ -76,16 +63,33 @@ const AppStack = () => {
             />
           );
         },
-        tabBarStyle: {
-          width: '100%',
-          height: '9%',
-          backgroundColor: COLORS.primaryBlue,
-        },
+        tabBarStyle:
+          route.name === 'Personagem'
+            ? {display: 'none'}
+            : {
+                width: '100%',
+                height: '9%',
+                backgroundColor: COLORS.primaryBlue,
+              },
         tabBarActiveTintColor: COLORS.primaryWhite,
         tabBarInactiveTintColor: COLORS.grey,
+        tabBarHideOnKeyboard: true,
       })}>
       <Tab.Screen name="Personagens" component={Personagens} />
       <Tab.Screen name="Grimorio" component={Grimorio} />
+      <Tab.Screen
+        name="Preload"
+        component={Preload}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Personagem"
+        component={Personagem}
+        options={({route}) => ({
+          tabBarStyle: {display: 'none'},
+          tabBarVisible: false,
+        })}
+      />
     </Tab.Navigator>
   );
 };
