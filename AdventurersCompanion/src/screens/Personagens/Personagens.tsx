@@ -68,7 +68,7 @@ const Personagens = ({navigation}: {navigation: any}) => {
         )}
         keyExtractor={item => item.uid}
       />
-      <AddFloatButton onClick={() => routePersonagem('')} />
+      <AddFloatButton onClick={() => routePersonagem(null)} />
     </View>
   );
 };

@@ -13,9 +13,9 @@ import {COLORS} from '../../assets/images/colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import app from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
-import {CommonActions} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {CommonActions} from '@react-navigation/native';
 
 const SignIn = ({navigation}: {navigation: any}) => {
   console.log(app, AsyncStorage);
@@ -29,12 +29,12 @@ const SignIn = ({navigation}: {navigation: any}) => {
       value.pass = pass;
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem('user', jsonValue);
-      //navigation.dispatch(
-      //  CommonActions.reset({
-      //    index: 0,
-      //    routes: [{name: 'Home'}],
-      //  }),
-      //);
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{name: 'AppStack'}],
+        }),
+      );
     } catch (e) {
       console.log('SignIn: erro em storeUserCache(): ' + e);
     }
@@ -71,12 +71,12 @@ const SignIn = ({navigation}: {navigation: any}) => {
             return;
           }
           getUser();
-          navigation.dispatch(
-            CommonActions.reset({
-              index: 0,
-              routes: [{name: 'Personagens'}],
-            }),
-          );
+          //navigation.dispatch(
+          //  CommonActions.reset({
+          //    index: 0,
+          //    routes: [{name: 'Personagens'}],
+          //  }),
+          //);
         })
         .catch(e => {
           console.log('SignIn: erro em entrar(): ' + e);

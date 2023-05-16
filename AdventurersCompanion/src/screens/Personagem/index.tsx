@@ -5,7 +5,7 @@ import PrimaryButton from '../../components/PrimaryButton';
 import DeleteButton from '../../components/DeleteButton';
 import {PersonagensContext} from '../../context/PersonagemProvider';
 
-const Personagem = ({navigation}: {navigation: any}, {value}: {value: any}) => {
+const Personagem = ({navigation}: {navigation: any}, {route}: {route: any}) => {
   const [Nome, setNome] = useState('');
   const [Classe, setClasse] = useState('');
   const [Subclasse, setSubclasse] = useState('');
@@ -15,14 +15,14 @@ const Personagem = ({navigation}: {navigation: any}, {value}: {value: any}) => {
   console.log(Nome, Classe, Subclasse, Nível);
 
   useEffect(() => {
-    if (value.params.value) {
-      setNome(value.params.value.nome);
-      setClasse(value.params.value.curso);
-      setSubclasse(value.params.value.curso);
-      setNível(value.params.value.curso);
-      setUid(value.params.value.uid);
+    if (route.params.value) {
+      setNome(route.params.value.Nome);
+      setClasse(route.params.value.Classe);
+      setSubclasse(route.params.value.Subclasse);
+      setNível(route.params.value.Nível);
+      setUid(route.params.value.uid);
     }
-  }, [value]);
+  }, [route]);
 
   const salvar = async () => {
     if (
