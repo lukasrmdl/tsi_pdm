@@ -1,29 +1,33 @@
 import React, {useEffect, useState, useContext} from 'react';
 import {Container, TextInput} from './styles';
 import {Alert, ToastAndroid} from 'react-native';
-import PrimaryButton from '../../components/PrimaryButton';
 import DeleteButton from '../../components/DeleteButton';
 import {PersonagensContext} from '../../context/PersonagemProvider';
+import SaveButton from '../../components/SaveButton';
 
-const Personagem = ({navigation}: {navigation: any}, {route}: {route: any}) => {
+interface PersonagemProps {
+  route: any;
+  navigation: any;
+}
+
+const Personagem: React.FC<PersonagemProps> = ({route, navigation}) => {
   const [Nome, setNome] = useState('');
   const [Classe, setClasse] = useState('');
   const [Subclasse, setSubclasse] = useState('');
-  const [Nível, setNível] = useState('');
+  const [Nivel, setNivel] = useState('');
   const [uid, setUid] = useState('');
   const {save, del} = useContext(PersonagensContext);
-  console.log(Nome, Classe, Subclasse, Nível);
+  console.log('Personagem acessado', Nome, Classe, Subclasse, Nivel, route);
 
   useEffect(() => {
-    if (route.params.value) {
+    if (route.params?.value) {
       setNome(route.params.value.Nome);
       setClasse(route.params.value.Classe);
       setSubclasse(route.params.value.Subclasse);
-      setNível(route.params.value.Nível);
+      setNivel(route.params.value.Nivel);
       setUid(route.params.value.uid);
     }
   }, [route]);
-
   const salvar = async () => {
     if (
       await save({
@@ -32,7 +36,7 @@ const Personagem = ({navigation}: {navigation: any}, {route}: {route: any}) => {
           Nome,
           Classe,
           Subclasse,
-          Nível,
+          Nivel,
         },
       })
     ) {
@@ -95,14 +99,14 @@ const Personagem = ({navigation}: {navigation: any}, {route}: {route: any}) => {
         value={Subclasse}
       />
       <TextInput
-        placeholder="Nível"
+        placeholder="Nivel"
         keyboardType="default"
         returnKeyType="go"
-        onChangeText={t => setNível(t)}
-        value={Nível}
+        onChangeText={t => setNivel(t)}
+        value={Nivel}
       />
-      <PrimaryButton
-        text="Salvar"
+      <SaveButton
+        texto="Salvar"
         onClick={() => {
           salvar();
         }}

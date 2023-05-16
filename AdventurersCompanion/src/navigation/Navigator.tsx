@@ -107,6 +107,7 @@ const Navigator = () => (
         name="Personagem"
         options={{
           presentation: 'modal',
+          headerShown: true,
         }}
       />
     </Stack.Navigator>

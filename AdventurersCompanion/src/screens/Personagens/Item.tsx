@@ -4,10 +4,11 @@ import {COLORS} from '../../assets/images/colors';
 
 type ItemProps = {
   item: {
+    uid: string;
     Nome: string;
     Classe: string;
     Subclasse: string;
-    Nível: number;
+    Nivel: string;
   };
   onPress: () => void;
 };
@@ -58,7 +59,7 @@ const Item = ({item, onPress}: ItemProps) => {
           <TextInfoClasse>Classe: {item.Classe} </TextInfoClasse>
           <TextInfoSubclasse>Subclasse: {item.Subclasse} </TextInfoSubclasse>
         </TextInfoContainer>
-        <TextInfoNivel>Nível: {item.Nível}</TextInfoNivel>
+        <TextInfoNivel>Nível: {item.Nivel}</TextInfoNivel>
       </>
     </Button>
   );

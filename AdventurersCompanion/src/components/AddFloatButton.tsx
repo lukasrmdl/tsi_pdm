@@ -11,7 +11,7 @@ const Button = styled.TouchableOpacity`
   width: 60px;
   height: 60px;
   position: absolute;
-  bottom: 10px;
+  bottom: 13px;
   right: 10px;
   background-color: ${COLORS.accentBlue};
   border-radius: 100px;

@@ -10,7 +10,7 @@ export default interface PersonagemData {
   Nome: string;
   Classe: string;
   Subclasse: string;
-  Nível: number;
+  Nivel: string;
 }
 
 interface PersonagemContextType {
@@ -48,7 +48,7 @@ export const PersonagemProvider = ({children}: {children: any}) => {
             Nome: doc.data().Nome,
             Classe: doc.data().Classe,
             Subclasse: doc.data().Subclasse,
-            Nível: doc.data().Nível,
+            Nivel: doc.data().Nivel,
           });
         });
         setPersonagens(data);
@@ -66,7 +66,7 @@ export const PersonagemProvider = ({children}: {children: any}) => {
           Nome: personagem.Nome,
           Classe: personagem.Classe,
           Subclasse: personagem.Subclasse,
-          Nível: personagem.Nível,
+          Nivel: personagem.Nivel,
         },
         {merge: true},
       );

@@ -9,30 +9,30 @@ import {View, StyleSheet, FlatList} from 'react-native';
 import AddFloatButton from '../../components/AddFloatButton';
 import SearchBar from '../../components/SearchBar';
 
-const Personagens = ({navigation}: {navigation: any}) => {
+interface PersonagensProps {
+  navigation: any;
+}
+
+interface Personagem {
+  uid: string;
+  Nome: string;
+  Classe: string;
+  Subclasse: string;
+  Nivel: string;
+}
+
+const Personagens: React.FC<PersonagensProps> = ({navigation}) => {
   const {personagens} = useContext(PersonagensContext);
   const [personagensTemp, setPersonagensTemp] = useState<any[]>([]);
 
   console.log(personagens, personagensTemp);
 
-  const filterByName = (text: any) => {
+  const filterByName = (text: string) => {
     if (text !== '') {
-      let a = [];
-      //personagens.forEach((e: any) => {
-      //  if (e.Nome.toLowerCase().includes(text.toLowerCase())) {
-      //    a.push(e);
-      //  }
-      //});
-
-      a.push(
-        ...personagens.filter((e: any) =>
-          e.Nome.toLowerCase().includes(text.toLowerCase()),
-        ),
+      const filteredEstudantes = personagens.filter((e: Personagem) =>
+        e.Nome.toLowerCase().includes(text.toLowerCase()),
       );
-
-      if (a.length > 0) {
-        setPersonagensTemp(a);
-      }
+      setPersonagensTemp(filteredEstudantes);
     } else {
       setPersonagensTemp([]);
     }
