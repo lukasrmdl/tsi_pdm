@@ -11,10 +11,11 @@ import ForgotPassWord from '../screens/ForgotPassWord/ForgotPassWord';
 import {COLORS} from '../assets/images/colors';
 import Personagens from '../screens/Personagens/Personagens';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Grimorio from '../screens/Grimorio/Grimorio';
+import Grimorio from '../screens/Grimorio';
 import {StatusBar} from 'react-native';
 import Preload from '../screens/Preload';
 import Personagem from '../screens/Personagem';
+import Magia from '../screens/Magia';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -105,6 +106,14 @@ const Navigator = () => (
       <Stack.Screen
         component={Personagem}
         name="Personagem"
+        options={{
+          presentation: 'modal',
+          headerShown: true,
+        }}
+      />
+      <Stack.Screen
+        component={Magia}
+        name="Magia"
         options={{
           presentation: 'modal',
           headerShown: true,

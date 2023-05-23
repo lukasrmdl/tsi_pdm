@@ -5,7 +5,7 @@ export default function ({setSearch}: {setSearch: any}) {
   return (
     <View>
       <TextInput
-        placeholder="digite o nome do Personagem"
+        placeholder="Buscar por nome..."
         keyboardType="default"
         returnKeyType="next"
         onChangeText={t => setSearch(t)}
