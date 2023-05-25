@@ -27,7 +27,7 @@ export const GrimorioProvider = ({children}: {children: React.ReactNode}) => {
       const response = await api.get('/Grimorio');
 
       let data: Magic[] = [];
-      response.data.documents.map((d: any) => {
+      response.data.documents.forEach((d: any) => {
         let k = d.name.split(
           'projects/adventurer-s-companion-36c8c/databases/(default)/documents/Grimorio/',
         );
@@ -56,7 +56,7 @@ export const GrimorioProvider = ({children}: {children: React.ReactNode}) => {
     }
   };
 
-  const saveMagic = async (val: any) => {
+  const saveMagic = async (val: Magic) => {
     try {
       await api.post('/Grimorio/', {
         fields: {
@@ -73,7 +73,7 @@ export const GrimorioProvider = ({children}: {children: React.ReactNode}) => {
     }
   };
 
-  const updateMagic = async (val: any) => {
+  const updateMagic = async (val: Magic) => {
     try {
       await api.patch('/Grimorio/' + val.uid, {
         fields: {
@@ -90,7 +90,7 @@ export const GrimorioProvider = ({children}: {children: React.ReactNode}) => {
     }
   };
 
-  const deleteMagic = async (val: any) => {
+  const deleteMagic = async (val: Magic) => {
     try {
       await api.delete('/Grimorio/' + val);
       getMagics();
