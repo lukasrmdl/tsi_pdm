@@ -13,7 +13,7 @@ interface Magic {
 export const GrimorioContext = createContext<any>({});
 
 export const GrimorioProvider = ({children}: {children: React.ReactNode}) => {
-  const [GrimorioMagias, setGrimorioMagias] = useState<Magic[]>([]);
+  const [GrimorioMagias, setGrimorioMagias] = useState<any[]>([]);
   const {api} = useContext(ApiContext);
 
   useEffect(() => {
