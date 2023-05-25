@@ -1,50 +1,47 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useContext, useEffect, useState} from 'react';
-import {CommonActions} from '@react-navigation/native';
-import Item from './Item';
-import AddFloatButton from '../../components/AddFloatButton';
-import {GrimorioContext} from '../../context/GrimorioProvider';
-import SearchBar from '../../components/SearchBar';
-import {FlatList, StyleSheet, View} from 'react-native';
 import {COLORS} from '../../assets/images/colors';
 import LogoutButton from '../../components/LogoutButton';
+import Item from './Item';
+import {GrimorioContext} from '../../context/GrimorioProvider';
+import {View, StyleSheet, FlatList} from 'react-native';
+import AddFloatButton from '../../components/AddFloatButton';
+import SearchBar from '../../components/SearchBar';
 
-interface Grimorio {
-  uid: string;
-  Escola: string;
-  Nivel: string;
-  Nome: string;
-}
-
-interface Props {
+interface GrimorioProps {
   navigation: any;
 }
 
-const Grimorio: React.FC<Props> = ({navigation}) => {
-  const {GrimorioMagias} = useContext(GrimorioContext);
-  console.log('Magias:', GrimorioMagias);
-  const [grimorioTemp, setGrimorioTemp] = useState<any[]>([]);
+interface Grimorio {
+  uid: string;
+  Nome: string;
+  Classe: string;
+  Subclasse: string;
+  Nivel: string;
+}
 
-  console.log(GrimorioMagias, grimorioTemp);
+const Grimorio: React.FC<GrimorioProps> = ({navigation}) => {
+  const {GrimorioMagias} = useContext(GrimorioContext);
+  const [GrimorioTemp, setGrimorioTemp] = useState<any[]>([]);
+
+  console.log(GrimorioMagias, GrimorioTemp);
 
   const filterByName = (text: string) => {
     if (text !== '') {
-      const filteredGrimorio = GrimorioMagias?.filter((item: any) =>
-        item.Nome.toLowerCase().includes(text.toLowerCase()),
+      const filteredGrimorio = GrimorioMagias.filter((e: Grimorio) =>
+        e.Nome.toLowerCase().includes(text.toLowerCase()),
       );
-      setGrimorioTemp(filteredGrimorio || []);
+      setGrimorioTemp(filteredGrimorio);
     } else {
       setGrimorioTemp([]);
     }
   };
 
-  const routeMagic = (value: any) => {
-    navigation.dispatch(
-      navigation.navigate({
-        value,
-      }),
-    );
+  const routeGrimorio = (value: any) => {
+    navigation.navigate('Magia', {
+      value,
+    });
   };
 
   useEffect(() => {
@@ -57,26 +54,21 @@ const Grimorio: React.FC<Props> = ({navigation}) => {
     });
   }, []);
 
-  const routeAddMagic = () => {
-    navigation.dispatch(
-      CommonActions.navigate({
-        name: 'Magia',
-        params: {magic: null},
-      }),
-    );
-  };
-
   return (
     <View style={styles.container}>
       <SearchBar setSearch={filterByName} />
       <FlatList
-        data={grimorioTemp.length > 0 ? grimorioTemp : GrimorioMagias}
+        data={GrimorioTemp.length > 0 ? GrimorioTemp : GrimorioMagias}
         renderItem={({item}) => (
-          <Item item={item} onPress={() => routeMagic(item)} key={item.uid} />
+          <Item
+            item={item}
+            onPress={() => routeGrimorio(item)}
+            key={item.uid}
+          />
         )}
         keyExtractor={item => item.uid}
       />
-      <AddFloatButton onClick={() => routeMagic(routeAddMagic)} />
+      <AddFloatButton onClick={() => routeGrimorio(null)} />
     </View>
   );
 };

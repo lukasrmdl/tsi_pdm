@@ -1,18 +1,10 @@
 import React, {createContext, useEffect, useState} from 'react';
-import {ApisauceInstance, create} from 'apisauce';
+import {create, ApisauceInstance} from 'apisauce';
 import auth from '@react-native-firebase/auth';
 
-interface ApiProviderProps {
-  children: React.ReactNode;
-}
+export const ApiContext = createContext<any>({});
 
-interface ApiContextProps {
-  api: ApisauceInstance | null;
-}
-
-export const ApiContext = createContext<ApiContextProps>({api: null});
-
-export const ApiProvider: React.FC<ApiProviderProps> = ({children}) => {
+export const ApiProvider = ({children}: {children: React.ReactNode}) => {
   const [api, setApi] = useState<ApisauceInstance | null>(null);
 
   const getApi = () => {
@@ -33,7 +25,6 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({children}) => {
               }
             });
 
-            // coloca no state
             setApi(apiLocal);
           }
         })
@@ -44,16 +35,13 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({children}) => {
   };
 
   useEffect(() => {
-    // cria um listener para o estado da sessão
     const unsubscriber = auth().onAuthStateChanged(authUser => {
       if (authUser) {
         getApi();
       }
     });
 
-    return () => {
-      unsubscriber(); // unsubscribe o listener ao desmontar
-    };
+    return unsubscriber;
   }, []);
 
   return <ApiContext.Provider value={{api}}>{children}</ApiContext.Provider>;

@@ -3,46 +3,17 @@ import React, {createContext, useState, useContext, useEffect} from 'react';
 
 import {ApiContext} from '../context/ApiProvider';
 
-export interface Magia {
-  uid: string;
+interface Magic {
+  Nome: string;
   Escola: string;
   Nivel: string;
-  Nome: string;
+  uid: string;
 }
 
-interface GrimorioContextProps {
-  GrimorioMagias: any | null;
-  saveMagic: (val: Magia) => Promise<boolean>;
-  updateMagic: (val: Magia) => Promise<boolean>;
-  deleteMagic: (val: string) => Promise<boolean>;
-}
+export const GrimorioContext = createContext<any>({});
 
-interface GrimorioProviderProps {
-  children: React.ReactNode;
-}
-
-interface APIResponse {
-  documents: {
-    uid: string;
-    fields: {
-      Escola: {stringValue: string};
-      Nivel: {stringValue: string};
-      Nome: {stringValue: string};
-    };
-  }[];
-}
-
-export const GrimorioContext = createContext<GrimorioContextProps>({
-  GrimorioMagias: null,
-  saveMagic: async () => false,
-  updateMagic: async () => false,
-  deleteMagic: async () => false,
-});
-
-export const GrimorioProvider: React.FC<GrimorioProviderProps> = ({
-  children,
-}) => {
-  const [GrimorioMagias, setGrimorio] = useState<Magia[] | null>(null);
+export const GrimorioProvider = ({children}: {children: React.ReactNode}) => {
+  const [GrimorioMagias, setGrimorioMagias] = useState<Magic[]>([]);
   const {api} = useContext(ApiContext);
 
   useEffect(() => {
@@ -53,71 +24,79 @@ export const GrimorioProvider: React.FC<GrimorioProviderProps> = ({
 
   const getMagics = async () => {
     try {
-      const response = await api?.get<APIResponse>('/Grimorio');
-      let data: Magia[] = [];
-      response?.data?.documents.forEach((d: APIResponse['documents'][0]) => {
-        if (d.fields && d.fields.Escola && d.fields.Nivel && d.fields.Nome) {
-          data.push({
-            uid: d.uid,
-            Escola: d.fields.Escola.stringValue,
-            Nivel: d.fields.Nivel.stringValue,
-            Nome: d.fields.Nome.stringValue,
-          });
+      const response = await api.get('/Grimorio');
+
+      let data: Magic[] = [];
+      response.data.documents.map((d: any) => {
+        let k = d.name.split(
+          'projects/adventurer-s-companion-36c8c/databases/(default)/documents/Grimorio/',
+        );
+
+        data.push({
+          Nome: d.fields.Nome.stringValue,
+          Escola: d.fields.Escola.stringValue,
+          Nivel: d.fields.Nivel.stringValue,
+          uid: k[1],
+        });
+      });
+      data.sort((a, b) => {
+        if (a.Nome.toUpperCase() < b.Nome.toUpperCase()) {
+          return -1;
         }
+        if (a.Nome.toUpperCase() > b.Nome.toUpperCase()) {
+          return 1;
+        }
+        // nomes iguais
+        return 0;
       });
-      data.sort((a: Magia, b: Magia) => {
-        return a.Nome.toUpperCase().localeCompare(b.Nome.toUpperCase());
-      });
-      setGrimorio(data);
+      setGrimorioMagias(data);
     } catch (response) {
-      console.error('Erro em getMagics via API:');
+      console.error('Erro em getCompanies via API:');
       console.error(response);
     }
   };
 
-  const saveMagic = async (val: Magia) => {
+  const saveMagic = async (val: any) => {
     try {
-      await api?.post('/Grimorio/', {
+      await api.post('/Grimorio/', {
         fields: {
-          uid: {stringValue: val.uid},
+          Nome: {stringValue: val.Nome},
           Escola: {stringValue: val.Escola},
           Nivel: {stringValue: val.Nivel},
-          Nome: {stringValue: val.Nome},
         },
       });
       getMagics();
       return true;
-    } catch (error) {
-      console.error('Erro em saveMagic via API:', error);
+    } catch (response) {
+      console.error('Erro em saveMagic via API: ' + response);
       return false;
     }
   };
 
-  const updateMagic = async (val: Magia) => {
+  const updateMagic = async (val: any) => {
     try {
-      await api?.patch('/Grimorio/' + val.uid, {
+      await api.patch('/Grimorio/' + val.uid, {
         fields: {
-          uid: {stringValue: val.uid},
+          Nome: {stringValue: val.Nome},
           Escola: {stringValue: val.Escola},
           Nivel: {stringValue: val.Nivel},
-          Nome: {stringValue: val.Nome},
         },
       });
       getMagics();
       return true;
-    } catch (error) {
-      console.error('Erro em updateMagic via API:', error);
+    } catch (response) {
+      // console.error('Erro em updateMagic via API: ' + response);
       return false;
     }
   };
 
-  const deleteMagic = async (val: string) => {
+  const deleteMagic = async (val: any) => {
     try {
-      await api?.delete('/Grimorio/' + val);
+      await api.delete('/Grimorio/' + val);
       getMagics();
       return true;
-    } catch (error) {
-      console.error('Erro em deleteMagic via API:', error);
+    } catch (response) {
+      console.error('Erro em deleteMagic via API: ' + response);
       return false;
     }
   };

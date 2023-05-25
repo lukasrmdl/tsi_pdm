@@ -50,7 +50,7 @@ const Personagem: React.FC<PersonagemProps> = ({route, navigation}) => {
   const excluir = async () => {
     Alert.alert(
       'Opa! Fique esperto.',
-      'Você tem certeza que deseja excluir o aluno?',
+      'Você tem certeza que deseja excluir o Personagem?',
       [
         {
           text: 'Não',

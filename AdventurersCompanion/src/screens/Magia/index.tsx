@@ -1,77 +1,46 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {Alert, ToastAndroid} from 'react-native';
+/* eslint-disable @typescript-eslint/no-shadow */
+import React, {useEffect, useState, useContext} from 'react';
 import {Container, TextInput} from './styles';
-import PrimaryButton from '../../components/PrimaryButton';
+import {Alert, ToastAndroid} from 'react-native';
 import DeleteButton from '../../components/DeleteButton';
 import {GrimorioContext} from '../../context/GrimorioProvider';
+import SaveButton from '../../components/SaveButton';
 
-interface Magic {
-  uid: string;
-  Escola: string;
-  Nivel: string;
-  Nome: string;
-}
-
-interface Props {
+interface MagiaProps {
   route: any;
   navigation: any;
 }
 
-const Magia: React.FC<Props> = ({route, navigation}) => {
-  const [escola, setEscola] = useState('');
-  const [nome, setNome] = useState('');
-  const [nivel, setNivel] = useState('');
+const Magia: React.FC<MagiaProps> = ({route, navigation}) => {
+  const [Nome, setNome] = useState('');
+  const [Escola, setEscola] = useState('');
+  const [Nivel, setNivel] = useState('');
   const [uid, setUid] = useState('');
-  const {saveMagic, updateMagic, deleteMagic} = useContext(GrimorioContext);
+  const {saveMagic, deleteMagic} = useContext(GrimorioContext);
 
   useEffect(() => {
-    if (route.params.magic) {
-      setEscola(route.params.magic.Escola);
-      setNome(route.params.magic.Nome);
-      setNivel(route.params.magic.Nivel);
-      setUid(route.params.magic.uid);
+    if (route.params?.value) {
+      const {Nome, Escola, Nivel, uid} = route.params.value;
+      setNome(Nome);
+      setEscola(Escola);
+      setNivel(Nivel);
+      setUid(uid);
     }
   }, [route]);
 
   const salvar = async () => {
-    if (escola && nome && nivel) {
-      let magic: Magic = {
-        uid: uid,
-        Escola: escola,
-        Nome: nome,
-        Nivel: nivel,
-      };
-
-      if (uid) {
-        if (await updateMagic(magic)) {
-          ToastAndroid.show(
-            'Show! Você alterou com sucesso.',
-            ToastAndroid.LONG,
-          );
-        } else {
-          ToastAndroid.show('Ops! Erro ao alterar.', ToastAndroid.LONG);
-        }
-      } else {
-        if (await saveMagic(magic)) {
-          ToastAndroid.show(
-            'Show! Você incluiu com sucesso.',
-            ToastAndroid.LONG,
-          );
-        } else {
-          ToastAndroid.show('Ops! Erro ao incluir.', ToastAndroid.LONG);
-        }
-      }
-
-      navigation.goBack();
+    if (await saveMagic({uid, Nome, Escola, Nivel})) {
+      ToastAndroid.show('Show! Você salvou com sucesso.', ToastAndroid.LONG);
+      navigation.navigate('Grimorio');
     } else {
-      Alert.alert('Atenção', 'Digite todos os campos.');
+      ToastAndroid.show('Ops! Deu problema ao salvar.', ToastAndroid.LONG);
     }
   };
 
   const excluir = async () => {
     Alert.alert(
-      'Fique Esperto!',
-      'Você tem certeza que deseja excluir a magia?',
+      'Opa! Fique esperto.',
+      'Você tem certeza que deseja excluir a Magia?',
       [
         {
           text: 'Não',
@@ -83,13 +52,13 @@ const Magia: React.FC<Props> = ({route, navigation}) => {
           onPress: async () => {
             if (await deleteMagic(uid)) {
               ToastAndroid.show(
-                'Show! Você excluiu com sucesso.',
+                'Ordem dada é ordem cumprida',
                 ToastAndroid.LONG,
               );
             } else {
-              ToastAndroid.show('Ops! Erro ao excluir.', ToastAndroid.LONG);
+              ToastAndroid.show('Deu problema ao excluir.', ToastAndroid.SHORT);
             }
-            navigation.goBack();
+            navigation.navigate('Personagens');
           },
         },
       ],
@@ -99,28 +68,40 @@ const Magia: React.FC<Props> = ({route, navigation}) => {
   return (
     <Container>
       <TextInput
-        placeholder="Escola da Magia"
-        keyboardType="default"
-        returnKeyType="go"
-        onChangeText={t => setEscola(t)}
-        value={escola}
-      />
-      <TextInput
-        placeholder="Nome da Magia"
+        placeholder="Nome"
         keyboardType="default"
         returnKeyType="go"
         onChangeText={t => setNome(t)}
-        value={nome}
+        value={Nome}
       />
       <TextInput
-        placeholder="Nível da Magia"
+        placeholder="Escola"
+        keyboardType="default"
+        returnKeyType="go"
+        onChangeText={t => setEscola(t)}
+        value={Escola}
+      />
+      <TextInput
+        placeholder="Nivel"
         keyboardType="default"
         returnKeyType="go"
         onChangeText={t => setNivel(t)}
-        value={nivel}
+        value={Nivel}
       />
-      <PrimaryButton text="Salvar" onClick={salvar} />
-      {uid ? <DeleteButton texto="Excluir" onClick={excluir} /> : null}
+      <SaveButton
+        texto="Salvar"
+        onClick={() => {
+          salvar();
+        }}
+      />
+      {uid && (
+        <DeleteButton
+          texto="Excluir"
+          onClick={() => {
+            excluir();
+          }}
+        />
+      )}
     </Container>
   );
 };
